@@ -1,11 +1,22 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}
 body{
 	background-color: #f4f4f4;
-	font-size: 16px;
+	font-size: 14px;
+}
+.clearfix:after{
+	display: block;
+	content: '';
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+.clearfix{
+	*zoom: 1;
 }
 .link{
 	text-decoration: none;
 	color:#6C6C6C;
+	cursor: pointer;
 }
 .link-text{
 	text-decoration: none;
@@ -18,4 +29,12 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 	width: 1190px;
+}
+.text-ellipsis{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.hide{
+	display: none;
 }

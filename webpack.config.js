@@ -48,6 +48,7 @@ module.exports = {
 			pages: path.resolve(__dirname, './src/pages'),
 			util: path.resolve(__dirname, './src/util'),
 			api: path.resolve(__dirname, './src/api'),
+			service: path.resolve(__dirname, './src/service'),
 			common: path.resolve(__dirname, './src/common'),
 			node_modules: path.resolve(__dirname, './node_modules'),
 		}
@@ -119,5 +120,10 @@ module.exports = {
     devServer: {
     	contentBase: './dist',
     	port:3002,//服务运行的端口
+    	//跨域请求
+	    proxy: [{
+	      context: ['/user'],
+	      target: 'http://localhost:3000/',
+	    }]    	
     }		
 };
