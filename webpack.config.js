@@ -8,6 +8,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicPath = '/';
 
+const getHtmlConfig = (name)=>({
+	template: './src/view/'+name+'.html',//模板文件
+	filename:name+'.html',////输出的文件名
+	inject:true,//脚本写在那个标签里,默认是true(在body结束后
+	hash:true,//给生成的js/css文件添加一个唯一的hash
+	chunks:['common',name]
+})
+
 module.exports = {
 	//指定打包环境
 	mode:'development',
@@ -41,6 +49,7 @@ module.exports = {
 			util: path.resolve(__dirname, './src/util'),
 			api: path.resolve(__dirname, './src/api'),
 			common: path.resolve(__dirname, './src/common'),
+			node_modules: path.resolve(__dirname, './node_modules'),
 		}
 	},
 	//配置loader
@@ -60,14 +69,19 @@ module.exports = {
 
 		    //处理图片 
 			{
-				test: /\.(png|jpg|gif|jpeg)$/i,
+				//字体后缀会跟一个问号(?表示前面原子出现的次数{0,1}等价于可有可无)
+				//. 除了回车和换行外的任意字符 等价[^\r\n]
+				//* 前面原子最少出现0次 {0,}
+				//(.* 表示后边再跟一些可有可无的字符)
+				test: /\.(png|jpg|gif|jpeg|ttf|woff2|woff|eot|svg)\??.*$/i,
 				use: [
 			  		{
 			    		loader: 'url-loader',
 			    		options: {
 			    			//当图片大小超过limit值后,会生成一个文件
 			    			//默认使用file-loader处理图片文件,所以需要额外安装file-loader
-			      			limit: 10000
+			      			limit: 999,
+			      			name:'resource/[name].[ext]'
 			    		}
 			  		}
 				]
@@ -91,13 +105,8 @@ module.exports = {
 	
 	plugins: [
 		//插件(自动生成HTML)
-		new HtmlWebpackPlugin({
-			template: './src/view/index.html',//模板文件
-			filename:'index.html',////输出的文件名
-			inject:true,//脚本写在那个标签里,默认是true(在body结束后
-			hash:true,//给生成的js/css文件添加一个唯一的hash
-			chunks:['common','index']
-		}),
+		new HtmlWebpackPlugin(getHtmlConfig('index')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理
