@@ -30,6 +30,11 @@ var page = {
 		$('#btn-submit').on('click',function(){
 			_this.submitLogin()
 		})
+		$('input').on('keyup',function(ev){
+			if(ev.keyCode == 13){
+				_this.submitLogin()
+			}
+		})
 	},
 	submitLogin:function(){
 		//1获取数据

@@ -66,7 +66,7 @@ var page = {
 			//发送ajax请求
 			_user.register(formData,function(){
 				//注册成功
-				window.location.href = './result.html'
+				window.location.href = './result.html?type=register'
 			},function(msg){//发送ajax用户名密码校验不通过
 				formErr.show(msg)
 			})

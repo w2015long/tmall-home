@@ -25,8 +25,6 @@ var nav = {
 			.find('.username')
 			.text(userInfo.username)
 
-		},function(){
-
 		})
 	}
 }

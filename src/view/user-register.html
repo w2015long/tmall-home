@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<%=require('html-loader!./common/meta.html') %>
-	<title>user-login</title>
+	<title>
+		<%=htmlWebpackPlugin.options.title %>
+	</title>
 </head>
 <body>
 <%=require('html-loader!./common/logo.html') %>

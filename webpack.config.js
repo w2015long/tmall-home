@@ -8,9 +8,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const publicPath = '/';
 
-const getHtmlConfig = (name)=>({
+const getHtmlConfig = (name,title)=>({
 	template: './src/view/'+name+'.html',//模板文件
 	filename:name+'.html',////输出的文件名
+	title:title,//标题
 	inject:true,//脚本写在那个标签里,默认是true(在body结束后
 	hash:true,//给生成的js/css文件添加一个唯一的hash
 	chunks:['common',name]
@@ -29,6 +30,8 @@ module.exports = {
 	  'index': './src/pages/index/index.js',
 	  'user-login':'./src/pages/user-login/index.js',
 	  'user-register':'./src/pages/user-register/index.js',
+	  'result':'./src/pages/result/index.js',
+	  'user-center':'./src/pages/user-center/index.js',
 	},	
 	
 	//出口
@@ -107,9 +110,11 @@ module.exports = {
 	
 	plugins: [
 		//插件(自动生成HTML)
-		new HtmlWebpackPlugin(getHtmlConfig('index')),
-		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
-		new HtmlWebpackPlugin(getHtmlConfig('user-register')),
+		new HtmlWebpackPlugin(getHtmlConfig('index','首页')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-login','用户登陆')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
+		new HtmlWebpackPlugin(getHtmlConfig('result','提示页面')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理

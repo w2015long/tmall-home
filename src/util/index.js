@@ -36,6 +36,17 @@ var _util = {
 	goHome:function(){
 		window.location.href = '/'
 	},
+	getParamsFromUrl:function(key){
+		//?type=register
+		//?name=tom&&type=register
+		//?name=tom&&type=register&&id=123		
+		var query = window.location.search.substr(1)
+		//'(^|&)'什么都没或者&开头
+		//=[^&]* 等号后不能有&
+		var reg = new RegExp('(^|&)'+type+'=([^&]*)(&|$)');
+		var result = query.match(reg)
+		return result ? result[2] : null
+	},
 	validate:function(value,type){
 		var value = $.trim(value)
 		//非空验证
