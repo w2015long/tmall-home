@@ -28,6 +28,7 @@ module.exports = {
 	  'common':'./src/pages/common/index.js',
 	  'index': './src/pages/index/index.js',
 	  'user-login':'./src/pages/user-login/index.js',
+	  'user-register':'./src/pages/user-register/index.js',
 	},	
 	
 	//出口
@@ -108,6 +109,7 @@ module.exports = {
 		//插件(自动生成HTML)
 		new HtmlWebpackPlugin(getHtmlConfig('index')),
 		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-register')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理

@@ -1,4 +1,5 @@
 var _util = {
+
 	request:function(options){
 		var _this = this
 		$.ajax({
@@ -32,7 +33,7 @@ var _util = {
 	goLogin:function(){
 		window.location.href = './user-login.html'
 	},
-	goHome(){
+	goHome:function(){
 		window.location.href = '/'
 	},
 	validate:function(value,type){
@@ -46,13 +47,25 @@ var _util = {
 			var reg = /^[a-zA-Z][a-zA-Z0-9]{3,15}$/;
 			return reg.test(value);
 		}
+		
 		//密码格式验证
 		if(type == 'password'){
 			var reg=/^[a-zA-Z0-9]{4,10}$/;
 			return reg.test(value); 
+		}	
+		//手机号格式验证
+		if(type == 'phone'){
+			var regMobile=/^1\d{10}$/;
+			return regMobile.test(value); 
+		}
+		//邮箱格式验证
+		if(type == 'email'){
+			var reg=/^\w+@\w+(\.[a-zA-Z]{2,3}){1,2}$/; 
+			return reg.test(value); 
 		}
 	}	
 
+
 }
 
-module.exports = _util
+module.exports = _util;

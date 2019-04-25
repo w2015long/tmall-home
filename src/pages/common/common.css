@@ -51,7 +51,6 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 		font-size: 16px;
 		font-weight: bold;
 		cursor: pointer;
-		padding: 0 10px;
 	}
 	.btn:hover{
 		opacity: 0.8;

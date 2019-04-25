@@ -16,6 +16,32 @@ var _user={
 			success:succ,
 			error:err
 		})
+	},
+	register:function(data,succ,err){
+		_util.request({
+			type:'post',
+			url:'user/register',
+			data:data,
+			success:succ,
+			error:err
+		})
+	},	
+	getUserInfo:function(succ,err){
+		_util.request({
+			url:'user/userInfo',
+			success:succ,
+			error:err
+		})			
+	},
+	checkUserName:function(username,succ,err){
+		_util.request({
+			url:'user/checkUsername',
+			data:{
+				username:username
+			},
+			success:succ,
+			error:err			
+		})
 	}
 }
 

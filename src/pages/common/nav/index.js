@@ -4,6 +4,7 @@ var _util = require('util')
 var nav = {
 	init:function(){
 		this.bindEvent();
+		this.loadUserInfo();
 		return this
 	},
 	bindEvent:function(){
@@ -14,6 +15,18 @@ var nav = {
 			},function(msg){
 				_util.showErrorMsg(msg)
 			})
+		})
+	},
+	loadUserInfo:function(){
+		_user.getUserInfo(function(userInfo){
+			// console.log(userInfo)
+			$('.not-login').hide();
+			$('.login').show()
+			.find('.username')
+			.text(userInfo.username)
+
+		},function(){
+
 		})
 	}
 }
