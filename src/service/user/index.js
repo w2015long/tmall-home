@@ -7,6 +7,15 @@ var _user={
 				success:success,
 				error:error
 			})		
+	},
+	login:function(data,succ,err){
+		_util.request({
+			type:'post',
+			url:'user/login',
+			data:data,
+			success:succ,
+			error:err
+		})
 	}
 }
 

@@ -31,6 +31,26 @@ var _util = {
 	},
 	goLogin:function(){
 		window.location.href = './user-login.html'
+	},
+	goHome(){
+		window.location.href = '/'
+	},
+	validate:function(value,type){
+		var value = $.trim(value)
+		//非空验证
+		if(type == 'require'){
+			return !!value
+		}
+		//用户名格式验证
+		if(type == 'username'){
+			var reg = /^[a-zA-Z][a-zA-Z0-9]{3,15}$/;
+			return reg.test(value);
+		}
+		//密码格式验证
+		if(type == 'password'){
+			var reg=/^[a-zA-Z0-9]{4,10}$/;
+			return reg.test(value); 
+		}
 	}	
 
 }

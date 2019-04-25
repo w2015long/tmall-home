@@ -4,10 +4,10 @@ var _util = require('util')
 var nav = {
 	init:function(){
 		this.bindEvent();
-		// this.loadUserName()
 		return this
 	},
 	bindEvent:function(){
+		//绑定退出事件
 		$('#logout').on('click',function(){
 			_user.logout(function(result){
 				window.location.reload()
