@@ -101,7 +101,14 @@ module.exports = {
 			            presets: ['env','es2015','stage-3'],		            
 			        }
 			    }               
-			}					  
+			},	
+			//加载template用html-loader
+			{
+			    test:/\.tpl$/,
+			    use: {
+			        loader: 'html-loader',
+			    }               
+			}							  
 		],
 		
 	},

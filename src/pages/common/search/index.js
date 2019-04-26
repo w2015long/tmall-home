@@ -10,7 +10,7 @@ var page = {
 	bindEvent:function(){
 		var _this = this;
 		//用户登陆
-		$('#btn-submit').on('click',function(){
+		$('#btn-search').on('click',function(){
 			_this.submitSearch()
 		})
 		$('input').on('keyup',function(ev){
@@ -20,7 +20,8 @@ var page = {
 		})
 	},
 	submitSearch:function(){
-
+		var keyword = $('#search-input').val()
+		window.location.href = './list.html?keyword='+keyword
 	}
 }
 

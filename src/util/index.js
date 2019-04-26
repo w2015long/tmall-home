@@ -1,3 +1,4 @@
+var Hogan = require('hogan.js')
 var _util = {
 
 	request:function(options){
@@ -43,9 +44,11 @@ var _util = {
 		var query = window.location.search.substr(1)
 		//'(^|&)'什么都没或者&开头
 		//=[^&]* 等号后不能有&
-		var reg = new RegExp('(^|&)'+type+'=([^&]*)(&|$)');
+		//(&|$)结尾可以是& 或者直接封闭结尾
+		var reg = new RegExp('(^|&)'+key+'=([^&]*)(&|$)');
 		var result = query.match(reg)
-		return result ? result[2] : null
+		// console.log(result)
+		return result ? decodeURIComponent(result[2]) : null
 	},
 	validate:function(value,type){
 		var value = $.trim(value)
@@ -74,7 +77,12 @@ var _util = {
 			var reg=/^\w+@\w+(\.[a-zA-Z]{2,3}){1,2}$/; 
 			return reg.test(value); 
 		}
-	}	
+	},
+	templateRender:function(temp,data)	{
+		var template = Hogan.compile(temp);
+		var output = template.render(data);
+		return output;
+	},
 
 
 }
