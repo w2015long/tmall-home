@@ -18,7 +18,7 @@ var silence = {
 	},
 	loadUserInfo:function(){
 		_user.getUserInfo(function(userInfo){
-			var html = _util.templateRender(tpl,userInfo)
+			var html = _util.templateRender(tpl,{userInfo:userInfo})
 			$('.side-content').html(html)
 		})
 	}
