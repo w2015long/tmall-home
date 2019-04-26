@@ -30,8 +30,9 @@ module.exports = {
 	  'index': './src/pages/index/index.js',
 	  'user-login':'./src/pages/user-login/index.js',
 	  'user-register':'./src/pages/user-register/index.js',
-	  'result':'./src/pages/result/index.js',
 	  'user-center':'./src/pages/user-center/index.js',
+	  'user-update-password':'./src/pages/user-update-password/index.js',
+	  'result':'./src/pages/result/index.js',
 	},	
 	
 	//出口
@@ -122,6 +123,7 @@ module.exports = {
 		new HtmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
 		new HtmlWebpackPlugin(getHtmlConfig('result','提示页面')),
 		new HtmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
+		new HtmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理

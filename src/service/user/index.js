@@ -33,6 +33,22 @@ var _user={
 			error:err
 		})			
 	},
+	getUsername:function(succ,err){
+		_util.request({
+			url:'user/username',
+			success:succ,
+			error:err
+		})			
+	},
+	updatePassword:function(newPassword,succ,err){
+		_util.request({
+			type:'PUT',
+			url:'user/updatePassword',
+			data:{password:newPassword},
+			success:succ,
+			error:err
+		})
+	},	
 	checkUserName:function(username,succ,err){
 		_util.request({
 			url:'user/checkUsername',

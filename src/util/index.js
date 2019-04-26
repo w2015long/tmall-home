@@ -32,7 +32,8 @@ var _util = {
 		alert(msg)
 	},
 	goLogin:function(){
-		window.location.href = './user-login.html'
+		window.location.href = './user-login.html?redirect='
+		+encodeURIComponent(window.location.href);
 	},
 	goHome:function(){
 		window.location.href = '/'
