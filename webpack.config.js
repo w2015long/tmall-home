@@ -33,6 +33,7 @@ module.exports = {
 	  'user-center':'./src/pages/user-center/index.js',
 	  'user-update-password':'./src/pages/user-update-password/index.js',
 	  'result':'./src/pages/result/index.js',
+	  'list':'./src/pages/list/index.js',
 	},	
 	
 	//出口
@@ -125,6 +126,7 @@ module.exports = {
 		new HtmlWebpackPlugin(getHtmlConfig('result','提示页面')),
 		new HtmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
 		new HtmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
+		new HtmlWebpackPlugin(getHtmlConfig('list','商品列表')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理
@@ -139,7 +141,7 @@ module.exports = {
     	port:3002,//服务运行的端口
     	//跨域请求
 	    proxy: [{
-	      context: ['/user'],
+	      context: ['/user','/product'],
 	      target: 'http://localhost:3000/',
 	    }]    	
     }		
