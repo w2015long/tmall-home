@@ -35,3 +35,62 @@
 		width: 100%;
 		height: 100%;
 	} 	
+/*楼层*/
+	.floor{
+		margin-bottom: 20px;
+	}
+	.floor-box{
+		margin-bottom: 20px;
+	}
+	.floor-title{
+		font-size: 18px;
+		margin-bottom: 15px;
+	}
+	.floor-box:nth-child(1) .floor-title{
+		color: #f21;
+		border-bottom: 2px solid #f21;
+	}
+	.floor-box:nth-child(2) .floor-title{
+		color: #f81;
+		border-bottom: 2px solid #f81;
+	}
+	.floor-box:nth-child(3) .floor-title{
+		color: #a1f;
+		border-bottom: 2px solid #a1f;
+	}
+	.floor-box:nth-child(4) .floor-title{
+		color: #d09;
+		border-bottom: 2px solid #d09;
+	}	
+	.floor-item{
+		float: left;
+		width: 208px;
+		height: 280px;
+		margin-right: 10px;
+		background-color: #fff;
+		text-align: center;
+		box-sizing: border-box;
+		padding-top: 10px;
+		margin-top: 15px;
+	}
+	.floor-item:hover{
+		box-shadow: 0px 1px 7px rgba(0,0,0,0.5);
+	}
+	.floor-item:nth-of-type(5n+0){
+		margin-right: 0px;
+	}
+	.floor-item a{
+		text-decoration: none;
+
+	}
+	.floor-text{
+		font-size: 18px;
+		font-weight: bold;
+		color: #111;
+
+	}
+	.floor-img{
+		width: 180px;
+		height: 180px;
+		margin-top: 20px;
+	}  	

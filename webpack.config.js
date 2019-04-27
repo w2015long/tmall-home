@@ -88,7 +88,7 @@ module.exports = {
 			    			//当图片大小超过limit值后,会生成一个文件
 			    			//默认使用file-loader处理图片文件,所以需要额外安装file-loader
 			      			limit: 999,
-			      			name:'resource/[name].[ext]'
+			      			name:'resource/[name].[hash].[ext]'
 			    		}
 			  		}
 				]
