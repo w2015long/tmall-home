@@ -1,5 +1,6 @@
 require('pages/common/nav')
 require('pages/common/search')
+require('util/pagination')
 var _product = require('service/product')
 var _util = require('util')
 require('pages/common/footer')
@@ -13,8 +14,12 @@ var silence = {
 		page:_util.getParamsFromUrl('page') || '1',
 	},
 	init:function(){
-		this.loadProductLis()
+		this.loadProductList()
 		this.bindEvent();
+		this.initPagination()
+	},
+	initPagination:function(){
+		$pagination = $('.')
 	},
 	bindEvent:function(){
 		var _this = this
@@ -42,15 +47,15 @@ var silence = {
 				}else{
 					$this.addClass('desc')
 					.removeClass('asc');
-
 					_this.listParam.orderBy = 'price_desc';					
 				}
 
 			}
+			_this.loadProductList()
 				
 		})
 	},
-	loadProductLis:function(){
+	loadProductList:function(){
 		this.listParam.keyword ? (delete this.listParam.categoryId) : (delete this.listParam.keyword)
 		// 请求后台数据
 		// console.log(this.listParam)
@@ -60,7 +65,12 @@ var silence = {
 			})
 
 			var html = _util.templateRender(tpl,{list:result.list})
-			$('.product-list-box').html(html)
+			$('.product-list-box').html(html);
+
+			//渲染分页组件
+			_this.pagination('render',{
+
+			})
 		},function(msg){
 			_util.showErrorMsg(msg)
 		})		

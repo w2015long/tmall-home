@@ -20,7 +20,7 @@ var page = {
 		})
 	},
 	submitSearch:function(){
-		var keyword = $('#search-input').val()
+		var keyword = $('#search-input').val();
 		window.location.href = './list.html?keyword='+keyword
 	}
 }
