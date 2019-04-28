@@ -19,7 +19,10 @@ var silence = {
 		this.initPagination()
 	},
 	initPagination:function(){
-		$pagination = $('.')
+		//初始化分页插件
+		this.$pagination = $('.pagination-box');
+		this.$pagination.pagination();
+
 	},
 	bindEvent:function(){
 		var _this = this
@@ -63,15 +66,17 @@ var silence = {
 			result.list.forEach(function(product){
 				product.image = product.images.split(',')[0] 
 			})
-
+			// console.log(result)
+			//渲染商品列表
 			var html = _util.templateRender(tpl,{list:result.list})
 			$('.product-list-box').html(html);
-
 			//渲染分页组件
-			_this.pagination('render',{
-
+			this.$pagination.pagination('render',{
+				current:result.current,
+				total:result.total,
+				pageSize:result.pageSize
 			})
-		},function(msg){
+		}.bind(this),function(msg){
 			_util.showErrorMsg(msg)
 		})		
 	}

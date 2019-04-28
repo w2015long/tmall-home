@@ -34,6 +34,7 @@ module.exports = {
 	  'user-update-password':'./src/pages/user-update-password/index.js',
 	  'result':'./src/pages/result/index.js',
 	  'list':'./src/pages/list/index.js',
+	  'detail':'./src/pages/detail/index.js',
 	},	
 	
 	//出口
@@ -127,6 +128,7 @@ module.exports = {
 		new HtmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
 		new HtmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
 		new HtmlWebpackPlugin(getHtmlConfig('list','商品列表')),
+		new HtmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理

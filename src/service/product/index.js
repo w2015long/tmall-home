@@ -8,7 +8,16 @@ var _product={
 			success:success,
 			error:error
 		})		
-	}
+	},
+	getProductDetail:function(data,success,error){
+		_util.request({
+			type:'GET',
+			url:'product/home/detail',
+			data:data,
+			success:success,
+			error:error
+		})		
+	},
 }
 
 module.exports = _product
