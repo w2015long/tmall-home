@@ -21,7 +21,12 @@ var silence = {
 	initPagination:function(){
 		//初始化分页插件
 		this.$pagination = $('.pagination-box');
-		this.$pagination.pagination();
+		this.$pagination.on('change-page',function(ev,page){
+			this.listParam.page = page;
+			//请求后台数据再次渲染页面
+			this.loadProductList()
+		}.bind(this))
+		this.$pagination .pagination();
 
 	},
 	bindEvent:function(){
@@ -54,6 +59,8 @@ var silence = {
 				}
 
 			}
+			//每次排序都请求第一页的数据
+			_this.listParam.page = 1;
 			_this.loadProductList()
 				
 		})
@@ -76,6 +83,7 @@ var silence = {
 				total:result.total,
 				pageSize:result.pageSize
 			})
+
 		}.bind(this),function(msg){
 			_util.showErrorMsg(msg)
 		})		
