@@ -26,6 +26,8 @@ var silence = {
 		_product.getProductDetail(this.params,function(product){
 			console.log('>>>product',product)
 			if(product){
+				//缓存库存值 用来处理购物车商品数量
+				this.stock = product.stock;
 				//处理图片
 				product.images = product.images.split(',');
 				product.mainImg = product.images[0];
@@ -42,7 +44,26 @@ var silence = {
 	},
 	bindEvent:function(){
 		//1.图片切换
+		this.$elem.on('mouseenter','.product-small-img-item',function(){
+			var $this = $(this)
+			$this.addClass('active')
+			.siblings('.product-small-img-item').removeClass('active');
+
+			var src = $this.find('img').attr('src');
+			$('.product-main-img img').attr('src',src);
+		})
 		//2.处理商品数量
+		var _this = this;
+		this.$elem.on('click','.count-btn',function(){
+			var $this = $(this);
+			var $input = $('.count-input');
+			var current = parseInt($input.val());
+			if($this.hasClass('plus')){
+				$input.val(current + 1 >= _this.stock ? _this.stock : current + 1); 
+			}else if($this.hasClass('minus')){
+				$input.val(current - 1 <= 0 ? 0 : current - 1);
+			}
+		})	
 		//3.添加购物车
 	}
 
