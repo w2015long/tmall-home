@@ -38,6 +38,9 @@ var _util = {
 	goHome:function(){
 		window.location.href = '/'
 	},
+	confirm:function(msg){
+		return window.confirm(msg)
+	},
 	getParamsFromUrl:function(key){
 		//?type=register
 		//?name=tom&&type=register

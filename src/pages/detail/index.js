@@ -2,6 +2,7 @@ require('pages/common/nav')
 require('pages/common/search')
 require('util/pagination')
 var _product = require('service/product')
+var _cart = require('service/cart')
 var _util = require('util')
 require('pages/common/footer')
 require('./index.css')
@@ -43,6 +44,7 @@ var silence = {
 		}.bind(this))
 	},
 	bindEvent:function(){
+		var _this = this;
 		//1.图片切换
 		this.$elem.on('mouseenter','.product-small-img-item',function(){
 			var $this = $(this)
@@ -53,7 +55,7 @@ var silence = {
 			$('.product-main-img img').attr('src',src);
 		})
 		//2.处理商品数量
-		var _this = this;
+		
 		this.$elem.on('click','.count-btn',function(){
 			var $this = $(this);
 			var $input = $('.count-input');
@@ -65,6 +67,16 @@ var silence = {
 			}
 		})	
 		//3.添加购物车
+		this.$elem.on('click','.add-cart-btn',function(){
+			_cart.addCart({
+				productId:_this.params.productId,
+				count:$('.count-input').val()
+			},function(){
+				window.location.href = './result.html?type=addCart';
+			},function(msg){
+				_util.showErrorMsg(msg)
+			})
+		})
 	}
 
 }

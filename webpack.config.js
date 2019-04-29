@@ -35,6 +35,8 @@ module.exports = {
 	  'result':'./src/pages/result/index.js',
 	  'list':'./src/pages/list/index.js',
 	  'detail':'./src/pages/detail/index.js',
+	  'cart':'./src/pages/cart/index.js',
+	  'order-confirm':'./src/pages/order-confirm/index.js',
 	},	
 	
 	//出口
@@ -129,6 +131,8 @@ module.exports = {
 		new HtmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
 		new HtmlWebpackPlugin(getHtmlConfig('list','商品列表')),
 		new HtmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
+		new HtmlWebpackPlugin(getHtmlConfig('cart','购物车')),
+		new HtmlWebpackPlugin(getHtmlConfig('order-confirm','订单确认')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
 		//css单独打包处理
@@ -143,7 +147,7 @@ module.exports = {
     	port:3002,//服务运行的端口
     	//跨域请求
 	    proxy: [{
-	      context: ['/user','/product'],
+	      context: ['/user','/product','/cart','/order'],
 	      target: 'http://localhost:3000/',
 	    }]    	
     }		
