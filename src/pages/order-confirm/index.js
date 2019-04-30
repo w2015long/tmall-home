@@ -1,12 +1,16 @@
 require('pages/common/nav')
 require('pages/common/search')
-require('util/pagination')
-var _order = require('service/order')
-var _util = require('util');
 require('pages/common/footer')
 require('./index.css')
+
+var _order = require('service/order')
+var _util = require('util');
+var _modal = require('./modal.js')
+
 var shoppingtpl = require('./shopping.tpl');
 var producttpl = require('./product.tpl');
+
+
 var silence = {
 	init:function(){
 		this.onload();
@@ -40,6 +44,9 @@ var silence = {
 		}.bind(this))
 	},	
 	bindEvent:function(){
+		this.$shopping.on('click','.shopping-add',function(){
+			_modal.showModal();
+		});
 	}
 
 }

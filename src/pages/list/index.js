@@ -68,7 +68,6 @@ var silence = {
 	loadProductList:function(){
 		this.listParam.keyword ? (delete this.listParam.categoryId) : (delete this.listParam.keyword)
 		// 请求后台数据
-		// console.log(this.listParam)
 		_product.getProductList(this.listParam,function(result){
 			result.list.forEach(function(product){
 				product.image = product.images.split(',')[0] 
