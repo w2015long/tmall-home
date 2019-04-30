@@ -42,6 +42,9 @@ var _cities = {
 			provinces.push(key)
 		}
 		return provinces;
+	},
+	getCities:function(province){
+		return this.cityInfo[province] || [];
 	}
 }
 module.exports = _cities
