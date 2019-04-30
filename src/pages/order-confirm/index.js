@@ -6,6 +6,7 @@ require('./index.css')
 var _order = require('service/order')
 var _util = require('util');
 var _modal = require('./modal.js')
+var _shopping = require('service/shopping')
 
 var shoppingtpl = require('./shopping.tpl');
 var producttpl = require('./product.tpl');
@@ -23,7 +24,16 @@ var silence = {
 		this.loadProductList();
 	},
 	loadShopping:function(){
-		var html = _util.templateRender(shoppingtpl);
+		_shopping.getShopping(function(address){
+			console.log(address)
+			this.renderShopping(address)
+		}.bind(this),function(msg){
+			_util.showErrorMsg(msg)
+		})
+
+	},
+	renderShopping:function(address){
+		var html = _util.templateRender(shoppingtpl,{address:address});
 		this.$shopping.html(html);
 	},
 	loadProductList:function(){
@@ -44,9 +54,31 @@ var silence = {
 		}.bind(this))
 	},	
 	bindEvent:function(){
+		var _this = this;
+		//1.弹出地址框
 		this.$shopping.on('click','.shopping-add',function(){
 			_modal.showModal();
 		});
+
+		//2. 渲染新增的地址
+		this.$shopping.on('render-address',function(ev,address){
+			this.renderShopping(address)
+		}.bind(this))
+		//3. 删除地址
+		this.$shopping.on('click','.shopping-delete',function(){
+			if(_util.confirm('你确定删除此条地址吗?')){
+				var shoppingId = $(this).parents('.shopping-item').data('shopping-id')
+				_shopping.deleteAddress({shoppingId:shoppingId},function(address){
+					_this.renderShopping(address)
+				},function(msg){
+					_util.showErrorMsg(msg)
+				})
+			}
+		});	
+		//4. 编辑地址
+		
+		
+		//5. 选择地址	
 	}
 
 }

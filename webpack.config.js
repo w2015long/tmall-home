@@ -147,7 +147,7 @@ module.exports = {
     	port:3002,//服务运行的端口
     	//跨域请求
 	    proxy: [{
-	      context: ['/user','/product','/cart','/order'],
+	      context: ['/user','/product','/cart','/order','/shopping'],
 	      target: 'http://localhost:3000/',
 	    }]    	
     }		

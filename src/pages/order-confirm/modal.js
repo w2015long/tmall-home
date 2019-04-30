@@ -81,6 +81,7 @@ var _modal = {
 		})				
 	},
 	orderSubmit:function(){
+		var _this = this;
 		//1.获取数据
 		var formData = {
 			name:$.trim($('[name="name"]').val()),
@@ -95,9 +96,13 @@ var _modal = {
 		var validateResult = this.validate(formData);
 		//3.发送请求
 		if(validateResult.status){//验证通过
+			var $shopping = $('.shopping-box');
 			formErr.hide();
-			_shopping.addShopping(formData,function(){
-				window.location.href = '/'
+			_shopping.addShopping(formData,function(shoppings){
+				console.log('address',shoppings)
+				_util.showSuccessMsg('添加地址成功');
+				$shopping.trigger('render-address',[shoppings]);
+				_this.hideMoadl()
 			},function(msg){
 				formErr.show(msg)
 			})
