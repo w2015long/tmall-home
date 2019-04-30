@@ -44,7 +44,7 @@ var silence = {
 	},
 	bindEvent:function(){
 		var _this = this;
-		//单挑选中/取消
+		//1单挑选中/取消
 		this.$elem.on('click','.select-one',function(){
 			var $this = $(this);
 			var productId = $this.parents('.product-item').data('product-id');
@@ -64,7 +64,7 @@ var silence = {
 				})
 			}
 		})
-		//全选中/取消
+		//2全选中/取消
 		this.$elem.on('click','.select-all',function(){
 			var $this = $(this); 
 			//全选中
@@ -83,7 +83,7 @@ var silence = {
 				})
 			}			
 		})
-		//删除一条
+		//3删除一条
 		this.$elem.on('click','.delete-one',function(){
 			var $this = $(this);
 			if(_util.confirm('你确定删除此条购物车?')){
@@ -109,11 +109,31 @@ var silence = {
 		//5.更新数量
 		this.$elem.on('click','.count-btn',function(){
 			var $this = $(this);
+			var $input = $this.siblings('.count-input');
+			var productId = $this.parents('.product-item').data('product-id');
+			var current = parseInt($input.val());
+			var stock = $input.data('stock');
+			var newCount;
 			if($this.hasClass("plus")){
-
+				if(current == stock){
+					_util.showErrorMsg('商品数量已经超出库存啦');
+					return 
+				}
+				$input.val(current + 1);
+				newCount = current + 1;
 			}else if($this.hasClass('minus')){
-				
+				if(current == 1){
+					_util.showErrorMsg('购物车至少要有一件商品哦')
+					return
+				}
+				$input.val(current - 1);
+				newCount = current - 1;
 			}
+			_cart.updateCount({count:newCount,productId:productId},function(cart){
+				_this.renderCart(cart)
+			},function(msg){
+				_util.showErrorMsg(msg)
+			})
 		})
 		//6.去结算
 		this.$elem.on('click','.btn-submit',function(){

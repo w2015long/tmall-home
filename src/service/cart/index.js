@@ -73,6 +73,15 @@ var _cart={
 			success:success,
 			error:error
 		})		
+	},
+	updateCount:function(data,success,error){
+		_util.request({
+			type:'put',
+			url:'cart/updateCount',
+			data:data,
+			success:success,
+			error:error
+		})		
 	},				
 }
 
