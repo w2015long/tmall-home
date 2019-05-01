@@ -24,16 +24,15 @@ var silence = {
 		this.loadProductList();
 	},
 	loadShopping:function(){
-		_shopping.getShopping(function(address){
-			console.log(address)
-			this.renderShopping(address)
+		_shopping.getShopping(function(addressInfo){
+			this.renderShopping(addressInfo)
 		}.bind(this),function(msg){
 			_util.showErrorMsg(msg)
 		})
 
 	},
-	renderShopping:function(address){
-		var html = _util.templateRender(shoppingtpl,{address:address});
+	renderShopping:function(addressInfo){
+		var html = _util.templateRender(shoppingtpl,{addressInfo:addressInfo});
 		this.$shopping.html(html);
 	},
 	loadProductList:function(){
@@ -61,22 +60,29 @@ var silence = {
 		});
 
 		//2. 渲染新增的地址
-		this.$shopping.on('render-address',function(ev,address){
-			this.renderShopping(address)
+		this.$shopping.on('render-address',function(ev,addressInfo){
+			this.renderShopping(addressInfo)
 		}.bind(this))
 		//3. 删除地址
-		this.$shopping.on('click','.shopping-delete',function(){
+		this.$shopping.on('click','.shopping-delete',function(ev){
 			if(_util.confirm('你确定删除此条地址吗?')){
 				var shoppingId = $(this).parents('.shopping-item').data('shopping-id')
-				_shopping.deleteAddress({shoppingId:shoppingId},function(address){
-					_this.renderShopping(address)
+				_shopping.deleteAddress({shoppingId:shoppingId},function(addressInfo){
+					_this.renderShopping(addressInfo)
 				},function(msg){
 					_util.showErrorMsg(msg)
 				})
 			}
 		});	
 		//4. 编辑地址
-		
+		this.$shopping.on('click','.shopping-edit',function(ev){
+			var shoppingId = $(this).parents('.shopping-item').data('shopping-id')
+			_shopping.fillAddress({shoppingId:shoppingId},function(addressInfo){
+				_modal.showModal(addressInfo);
+			},function(msg){
+				_util.showErrorMsg(msg)
+			})
+		})
 		
 		//5. 选择地址	
 	}

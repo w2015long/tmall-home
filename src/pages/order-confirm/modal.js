@@ -22,13 +22,16 @@ var formErr = {
 }
 
 var _modal = {
-	showModal:function(){
+	showModal:function(addressInfo){
 		this.$modal = $('.modal-box');
+		//编辑时 回填地址信息
+		this.addressInfo = addressInfo;
 		this.loadModal()
 		this.bindEvent();
 	},
 	loadModal:function(){
-		var html = _util.templateRender(modaltpl);
+		console.log(this.addressInfo)
+		var html = _util.templateRender(modaltpl,this.addressInfo);
 		this.$modal.html(html);
 		this.loadProvinces();
 	},
@@ -39,13 +42,23 @@ var _modal = {
 		var provinces = _cities.getProvinces();
 		var provincesHtml = this.fillSelectOptions(provinces);
 		var $provinceSelect = $('.province-select');
-		$provinceSelect.html(provincesHtml)
+		$provinceSelect.html(provincesHtml);
+		//编辑时 回填省份
+		if(this.addressInfo){
+			console.log('edit',this.addressInfo);
+			$provinceSelect.val(this.addressInfo.province);
+			this.loadCities(this.addressInfo.province)
+		}
 	},
 	loadCities:function(province){
 		var cities = _cities.getCities(province);
 		var citiesHtml = this.fillSelectOptions(cities);
 		var $citiesSelect = $('.city-select');
 		$citiesSelect.html(citiesHtml);
+		//编辑时 回填城市
+		if(this.addressInfo){
+			$citiesSelect.val(this.addressInfo.city);
+		}	
 	},
 	fillSelectOptions:function(arr){
 		var html = '<option value="">请选择</option>';
@@ -98,14 +111,25 @@ var _modal = {
 		if(validateResult.status){//验证通过
 			var $shopping = $('.shopping-box');
 			formErr.hide();
-			_shopping.addShopping(formData,function(shoppings){
-				console.log('address',shoppings)
-				_util.showSuccessMsg('添加地址成功');
-				$shopping.trigger('render-address',[shoppings]);
-				_this.hideMoadl()
-			},function(msg){
-				formErr.show(msg)
-			})
+			if(this.addressInfo){//编辑提交
+				formData.shoppingId = this.addressInfo._id;
+				_shopping.editAddress(formData,function(shoppings){
+					_util.showSuccessMsg('修改地址成功');
+					$shopping.trigger('render-address',[shoppings]);
+					_this.hideMoadl()
+				},function(msg){
+					formErr.show(msg)
+				})	
+			}else{//新增地址 提交
+				_shopping.addShopping(formData,function(shoppings){
+					_util.showSuccessMsg('添加地址成功');
+					$shopping.trigger('render-address',[shoppings]);
+					_this.hideMoadl()
+				},function(msg){
+					formErr.show(msg)
+				})				
+			}
+
 		}else{//验证失败
 			formErr.show(validateResult.message)
 		}

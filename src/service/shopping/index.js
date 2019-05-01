@@ -24,6 +24,23 @@ var _shopping={
 			success:success,
 			error:error
 		})		
+	},
+	fillAddress:function(data,success,error){
+		_util.request({
+			url:'shopping/',
+			data:data,
+			success:success,
+			error:error
+		})		
+	},
+	editAddress:function(data,success,error){
+		_util.request({
+			type:'put',
+			url:'shopping/',
+			data:data,
+			success:success,
+			error:error
+		})		
 	},					
 }
 
