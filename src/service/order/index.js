@@ -7,6 +7,15 @@ var _order={
 			error:error
 		})		
 	},
+	createOrder:function(data,succ,err){
+		_util.request({
+			type:'post',
+			url:'order/',
+			data:data,
+			success:succ,
+			error:err
+		})	
+	},
 				
 }
 

@@ -20,6 +20,7 @@ var silence = {
 	onload:function(){
 		this.$shopping = $('.shopping-box');
 		this.$product = $('.product-box');
+		this.selectId = '';
 		this.loadShopping();
 		this.loadProductList();
 	},
@@ -32,8 +33,16 @@ var silence = {
 
 	},
 	renderShopping:function(addressInfo){
+		//渲染页面再加个字段 active
+		addressInfo.forEach(function(item){
+			if(item._id == this.selectId){
+				item.active = true;
+			}			
+		}.bind(this))
+
 		var html = _util.templateRender(shoppingtpl,{addressInfo:addressInfo});
 		this.$shopping.html(html);
+		// console.log('addressInfo',addressInfo);
 	},
 	loadProductList:function(){
 		_order.getOrderProductList(function(cart){
@@ -65,6 +74,7 @@ var silence = {
 		}.bind(this))
 		//3. 删除地址
 		this.$shopping.on('click','.shopping-delete',function(ev){
+			ev.stopPropagation();
 			if(_util.confirm('你确定删除此条地址吗?')){
 				var shoppingId = $(this).parents('.shopping-item').data('shopping-id')
 				_shopping.deleteAddress({shoppingId:shoppingId},function(addressInfo){
@@ -76,6 +86,8 @@ var silence = {
 		});	
 		//4. 编辑地址
 		this.$shopping.on('click','.shopping-edit',function(ev){
+			//防止选中地址 冒泡
+			ev.stopPropagation();
 			var shoppingId = $(this).parents('.shopping-item').data('shopping-id')
 			_shopping.fillAddress({shoppingId:shoppingId},function(addressInfo){
 				_modal.showModal(addressInfo);
@@ -85,6 +97,27 @@ var silence = {
 		})
 		
 		//5. 选择地址	
+		this.$shopping.on('click','.shopping-item',function(){
+			var $this = $(this);
+			$this.addClass('active')
+			.siblings('.shopping-item').removeClass('active');
+			//标记选中项
+			_this.selectId = $this.data('shopping-id');
+			
+
+		})
+		//去支付
+		this.$product.on('click','.btn-submit',function(){
+			if(_this.selectId){
+				_order.createOrder({shoppingId:_this.selectId},function(order){
+					window.location.href = './payment.html?orderNo='+order.orderNo
+				},function(msg){
+					_util.showErrorMsg(msg)
+				})
+			}else{
+				_util.showErrorMsg('请选择地址后提交!!!')
+			}
+		})
 	}
 
 }
