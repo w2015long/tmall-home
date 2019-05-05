@@ -9,7 +9,14 @@ var _payment={
 			error:err
 		})	
 	},
-				
+	getStatus:function(data,succ,err){
+		_util.request({
+			url:'payment/status',
+			data:data,
+			success:succ,
+			error:err
+		})	
+	},			
 }
 
 module.exports = _payment

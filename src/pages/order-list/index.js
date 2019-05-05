@@ -4,28 +4,34 @@ require('util/pagination')
 require('pages/common/footer')
 var _payment = require('service/payment')
 var _util = require('util');
+var _side = require('pages/common/side')
 
 require('./index.css')
 var tpl = require('./index.tpl')
 var silence = {
 	param:{
-		orderNo : _util.getParamsFromUrl('orderNo') || '' 
+		page:_util.getParamsFromUrl('page') || 1,
 	},
 	init:function(){
-		this.$elem = $('.payment-box')
-		this.loadPayment();
+		this.$elem = $('.payment-box');
+		this.initPagination()
+		this.onload();
 	},
-	loadPayment:function(){
-		var _this = this;
-		if(this.param.orderNo){
-			_payment.getPaymentInfo({orderNo:this.param.orderNo},function(payment){
-				console.log(payment)
-				var html = _util.templateRender(tpl,payment);
-				_this.$elem.html(html);
-			},function(msg){
-				_util.showErrorMsg(msg)
-			})
-		}
+	onload:function(){
+		_side.render('order-list')
+	},
+	initPagination:function(){
+		//初始化分页插件
+		this.$pagination = $('.pagination-box');
+		this.$pagination.on('change-page',function(ev,page){
+			this.listParam.page = page;
+			//请求后台数据再次渲染页面
+			this.loadOrderList()
+		}.bind(this))
+		this.$pagination .pagination();		
+	},
+	loadOrderList:function(){
+
 	}
 
 }

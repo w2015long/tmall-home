@@ -13,20 +13,33 @@ var silence = {
 	},
 	init:function(){
 		this.$elem = $('.payment-box')
-		this.loadPayment();
+		this.loadPaymentInfo();
 	},
-	loadPayment:function(){
+	loadPaymentInfo:function(){
 		var _this = this;
 		if(this.param.orderNo){
 			_payment.getPaymentInfo({orderNo:this.param.orderNo},function(payment){
-				console.log(payment)
 				var html = _util.templateRender(tpl,payment);
 				_this.$elem.html(html);
+				//监听订单支付状态
+				_this.listenPaymentStatus()
+			},function(){
+				_this.$elem.html('<p class="empty-message">获取支付信息失败，请稍后重试！！！</p>');
+			})
+		}
+	},
+	listenPaymentStatus:function(){
+		var _this = this;
+		setInterval(function(){
+			_payment.getStatus({orderNo:_this.param.orderNo},function(result){
+				if(result){
+					window.location.href = './result.html?type=payment&orderNo='+_this.param.orderNo
+				}
 			},function(msg){
 				_util.showErrorMsg(msg)
 			})
-		}
-	}
+		},1000)	
+	}	
 
 }
 

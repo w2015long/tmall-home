@@ -19,14 +19,17 @@ var silence = {
 		var _this = this;
 		if(this.param.orderNo){
 			_payment.getPaymentInfo({orderNo:this.param.orderNo},function(payment){
-				console.log(payment)
+				// console.log(payment)
 				var html = _util.templateRender(tpl,payment);
 				_this.$elem.html(html);
-			},function(msg){
-				_util.showErrorMsg(msg)
+				
+				_this.listenPaymentStatus();
+			},function(){
+				_this.$elem.html('<p class="empty-message">获取支付信息失败，请稍后重试！！！</p>');
 			})
 		}
-	}
+	},
+
 
 }
 
