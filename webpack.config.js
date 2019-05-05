@@ -38,6 +38,8 @@ module.exports = {
 	  'cart':'./src/pages/cart/index.js',
 	  'payment':'./src/pages/payment/index.js',
 	  'order-confirm':'./src/pages/order-confirm/index.js',
+	  'order-detail':'./src/pages/order-detail/index.js',
+	  'order-list':'./src/pages/order-list/index.js',
 	},	
 	
 	//出口
@@ -134,6 +136,8 @@ module.exports = {
 		new HtmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
 		new HtmlWebpackPlugin(getHtmlConfig('cart','购物车')),
 		new HtmlWebpackPlugin(getHtmlConfig('order-confirm','订单确认')),
+		new HtmlWebpackPlugin(getHtmlConfig('order-detail','订单详情')),
+		new HtmlWebpackPlugin(getHtmlConfig('order-list','订单列表')),
 		new HtmlWebpackPlugin(getHtmlConfig('payment','支付订单')),
 		//时时清理更新后上一次文件
 		new CleanWebpackPlugin(),
