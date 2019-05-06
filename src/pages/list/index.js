@@ -14,6 +14,7 @@ var silence = {
 		page:_util.getParamsFromUrl('page') || '1',
 	},
 	init:function(){
+		this.$elem = $('.product-list-box');
 		this.loadProductList()
 		this.bindEvent();
 		this.initPagination()
@@ -69,23 +70,27 @@ var silence = {
 		this.listParam.keyword ? (delete this.listParam.categoryId) : (delete this.listParam.keyword)
 		// 请求后台数据
 		_product.getProductList(this.listParam,function(result){
-			result.list.forEach(function(product){
-				product.image = product.images.split(',')[0] 
-			})
-			// console.log(result)
-			//渲染商品列表
-			var html = _util.templateRender(tpl,{list:result.list})
-			$('.product-list-box').html(html);
-			//渲染分页组件
-			this.$pagination.pagination('render',{
-				current:result.current,
-				total:result.total,
-				pageSize:result.pageSize
-			})
-
+			if(result.list.length>0){
+				result.list.forEach(function(product){
+					product.image = product.images.split(',')[0] 
+				})
+				// console.log(result)
+				//渲染商品列表
+				var html = _util.templateRender(tpl,{list:result.list})
+				this.$elem.html(html);
+				//渲染分页组件
+				this.$pagination.pagination('render',{
+					current:result.current,
+					total:result.total,
+					pageSize:result.pageSize
+				})
+			}else{
+				this.$elem.html('<p class="empty-message">你找的商品去火星了！！！</p>');
+			}
 		}.bind(this),function(msg){
 			_util.showErrorMsg(msg)
-		})		
+		})
+
 	}
 }
 

@@ -122,10 +122,3 @@
 	float: right;
 }
 
-.order-list .order-title li.order-shipping-name .text{
-	width: 100px;
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
-    text-overflow: ellipsis;
-}
