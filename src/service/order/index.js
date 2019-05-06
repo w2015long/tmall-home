@@ -23,6 +23,23 @@ var _order={
 			success:succ,
 			error:err
 		})	
+	},
+	getOrder:function(data,succ,err){
+		_util.request({
+			url:'order/home/detail',
+			data:data,
+			success:succ,
+			error:err
+		})	
+	},
+	cancelOrder:function(data,succ,err){
+		_util.request({
+			type:'put',
+			url:'order/cancel',
+			data:data,
+			success:succ,
+			error:err
+		})	
 	},			
 }
 
